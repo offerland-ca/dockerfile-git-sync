@@ -15,6 +15,7 @@ fi
 while true; do
   echo "Syncing the repository every $INTERVAL seconds"
   git -C /app/${DIRECTORY_NAME:-project} pull origin ${GIT_BRANCH:-main}
+  git clean -fd
   sleep ${INTERVAL:-10}
   rsync -vazC /app/${DIRECTORY_NAME:-project}/ ${DESTINATION_PATH:-/app/sync}
 done

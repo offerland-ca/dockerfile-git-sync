@@ -9,7 +9,7 @@ if [ ! -d "/app/${DIRECTORY_NAME:-project}/.git" ]; then
   cd /app/${DIRECTORY_NAME:-project}
   git remote add origin $REPO_URL
   git pull origin ${GIT_BRANCH:-main}
-  rsync -vazC /app/${DIRECTORY_NAME:-project}/ ${DESTINATION_PATH:-/app/sync}
+  rsync -vazC --delete /app/${DIRECTORY_NAME:-project}/ ${DESTINATION_PATH:-/app/sync}
 fi
 
 while true; do
@@ -17,5 +17,5 @@ while true; do
   git -C /app/${DIRECTORY_NAME:-project} pull origin ${GIT_BRANCH:-main}
   git clean -fd
   sleep ${INTERVAL:-10}
-  rsync -vazC /app/${DIRECTORY_NAME:-project}/ ${DESTINATION_PATH:-/app/sync}
+  rsync -vazC --delete /app/${DIRECTORY_NAME:-project}/ ${DESTINATION_PATH:-/app/sync}
 done
